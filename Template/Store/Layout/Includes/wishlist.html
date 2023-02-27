@@ -1,0 +1,61 @@
+<div id="wishlist" data-bs-backdrop="static" class="modal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>Wishlist</h4>
+                <button data-bs-dismiss="modal" class="btn-close"></button>
+            </div>
+            <div class="modal-body" id="wishlist-body">
+                {% if wishlist|length == 0 %}
+                <center><h2>You have no item added</h2></center>
+                <center><h2> to your wishlist</h2></center>
+                {% else %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th class="text-center">Name</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">View Product</th>
+                            <th class="text-center">Remove</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in wishlist %}
+                        <tr>
+                            <td>
+                                <img src="{{i.category.product_image.url}}" height="100px" width="100px" alt="kk">
+                            </td>
+                            <td class="text-center pt-4 justify-content-center">
+                                {{i.category.name}}
+                            </td>
+                            <td class="text-center pt-4 justify-content-center">
+                                <p>Rs. {{i.category.price}}</p>
+                            </td>
+                            <td class="text-center pt-4 justify-content-center">
+                                <a href="{% url 'productview' i.category.category.urlname i.category.name %}" class="btn btn-primary form-control"><i class="fa fa-eye"></i> View</a>
+                            </td>
+                            <td class="text-center pt-4 justify-content-center">
+                                <input type="hidden" name="" id="id{{forloop.counter}}" value="{{i.id}}">
+                                {% csrf_token %}
+                                <button id="{{forloop.counter}}" onclick="removewishlist()" class="btn btn-danger form-control"><i class="fa fa-trash"></i> Remove</button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="row">
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                    <div class="col-md-4">
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="modal-footer"></div>
+        </div>
+    </div>
+</div>

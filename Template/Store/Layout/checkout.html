@@ -1,0 +1,106 @@
+{% extends 'Store\base.html' %}
+{% block title %}
+Checkout Page
+{% endblock title %}
+
+{% block content %}
+
+<div class="py-3 bg-primary">
+  <div class="container">
+    <a class="text-white" href="{% url 'home' %}">Home /</a>
+    <a class="text-white" href="{% url 'checkout' %}">Checkout</a>
+  </div>
+</div>
+<div class="container-fluid mt-4 mb-5">
+    <div class="row">
+        <div class="col-md-7">
+            <div class="card mx-3">
+                <div class="card-body shadow">
+                    <label for="">Basic Details</label>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">First Name :</label>
+                            <input required type="text" name="" class="form-control" placeholder="First Name">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Last Name :</label>
+                            <input required type="text" name="" class="form-control" placeholder="First Name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Email :</label>
+                            <input required type="email" name="" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Phone :</label>
+                            <input required type="text" name="" class="form-control" placeholder="Phone">
+                        </div>
+                    </div>
+                    <div class="">
+                        <label for="">Address</label>
+                        <textarea name="" placeholder="Enter Address" class="form-control" cols="30" rows=""></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">City :</label>
+                            <input required type="text" name="" class="form-control" placeholder="City">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">State :</label>
+                            <input required type="text" name="" class="form-control" placeholder="State">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">Country :</label>
+                            <input required type="text" name="" class="form-control" placeholder="Country">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Pin Code :</label>
+                            <input required type="text" name="" class="form-control" placeholder="Pin Code">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="card me-3">
+                <div class="card-body shadow">
+                    <label for="">Order Summary</label>
+                    <hr>
+                    <table class="table ">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Qty</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in cartitem %}
+                            <tr>
+                                <td>
+                                    <img src="{{i.category.product_image.url}}" height="50px" width="50px" alt="">
+                                    {{i.category.name}}
+                                </td>
+                                <td>{{i.quantity}}</td>
+                                <td>{{i.category.selling_price}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    <hr>
+                    <span>
+                        Grand Total:
+                        <h6 class="float-end">Rs. {{grand_total}}</h6>
+                    </span>
+                    <hr>
+                    <a href="#" class="btn btn-success form-control">Place Order</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

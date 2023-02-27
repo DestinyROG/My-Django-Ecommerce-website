@@ -1,0 +1,12 @@
+/* body{
+    background-color: rgb(37, 36, 36);
+} */
+a{
+    text-decoration: none;
+}
+
+#bbg{
+    position: absolute;
+    top: 74%;
+    z-index: 1;
+}

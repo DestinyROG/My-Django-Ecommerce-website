@@ -1,0 +1,128 @@
+{% extends 'Store\base.html' %}
+{% block title %}
+Cart
+{% endblock title %}
+
+{% block content %}
+
+<div class="py-3 bg-primary">
+  <div class="container">
+    <a class="text-white" href="{% url 'home' %}">Home /</a>
+    <a class="text-white" href="{% url 'cart' %}">Cart</a>
+  </div>
+</div>
+<div id="mycart" class="container">
+  <div  class="card mb-5 mt-5 shadow">
+    {% if cart|length == 0 %}
+    <div id="cart-empty" class="card-body">
+      <!-- While Empty -->
+      <h5 class="card-title">My Cart</h5>
+    </div>
+    <div class="center">
+      <img
+        src="https://rukminim1.flixcart.com/www/800/800/promos/16/05/2019/d438a32e-765a-4d8b-b4a6-520b560971e8.png?q=90"
+        alt=""
+      />
+      <h4>Your cart is empty</h4>
+      <h6>Add item to it now</h6>
+      <a href="/" class="btn btn-primary">Shop Now</a>
+    </div>
+    <!-- While Empty -->
+    {% else %} 
+    <div class="card-body" id="card-item">
+      <label class="h1 mx-3">Cart</label>
+      <hr>
+        {% for i in cart %}
+        <div class="row">
+          <div class="col-md-5 row">
+            <div class="col-md">
+              <img src="{{i.category.product_image.url}}" alt="" height="115.95px" />
+            </div>
+            <div style="justify-self: center" class="col-md pt-5">
+              <p>{{i.category.name}}</p>
+            </div>
+          </div>
+          <div class="col-md-7 row">
+            <div class="col-md-4 pt-5">
+              <p>Rs. {{i.category.selling_price}}</p>
+            </div>
+            <div class="col-md-4 pt-4">
+              {% if i.category.quantity != 0 %}
+                {% if i.category.quantity >= i.quantity %}
+                  <label for="Quantity">Quantity:</label>
+                  <div class="input-group product-data text-center mb-3">
+                    <input
+                      type="text"
+                      value="{{i.category.id}}"
+                      id="prod_id{{forloop.counter}}"
+                      hidden
+                    />
+                    {% csrf_token %}
+                    <input
+                      type="text"
+                      name="hid-qty"
+                      id="hid-qty{{forloop.counter}}"
+                      value="{{i.category.quantity}}"
+                      hidden
+                    />
+                    <input
+                      onclick="decrementc()"
+                      id="{{forloop.counter}}"
+                      class="input-group-text"
+                      type="button"
+                      value="-"
+                    />
+                    <input
+                      id="qty{{forloop.counter}}"
+                      class="form-control text-center bg-light"
+                      type="text"
+                      value="{{i.quantity}}"
+                    />
+                    <input
+                      id="{{forloop.counter}}"
+                      onclick="incrementc()"
+                      class="input-group-text"
+                      type="button"
+                      value="+"
+                    />
+                  </div>
+                  {% else %}
+                  <input
+                      type="text"
+                      value="{{i.id}}"
+                      id="prod_id{{forloop.counter}}"
+                      hidden
+                    />
+                    {% csrf_token %}
+                  <i>Out of stock</i>
+                {% endif %}
+
+                {% else %}
+                <input
+                      type="text"
+                      value="{{i.id}}"
+                      id="prod_id{{forloop.counter}}"
+                      hidden
+                    />
+                    {% csrf_token %}
+                  <i>Out of stock</i>
+                {% endif %}
+            </div>
+            <div class="col-md-4 pt-5">
+              <button
+                onclick="remove()"
+                class="btn btn-danger remove{{forloop.counter}}"
+              >
+                <i class="fa fa-trash"></i> Remove
+              </button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <hr>
+        <a href="{% url 'checkout' %}" class="btn btn-primary float-end w-25">Checkout</a>
+    {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

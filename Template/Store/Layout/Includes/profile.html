@@ -1,0 +1,24 @@
+<div class="modal" data-bs-backdrop="static" id="profile">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <center>
+                    <h1>Hello, </h1><h1>{{request.user}}</h1>
+                </center>
+            </div>
+            <div class="modal-footer">
+                <div class="row container-fluid">
+                    <div class="col-md-6">
+                        <a href="{% url 'delete' %}" class="btn btn-danger form-control ">Delete</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="{% url 'logout' %}" class="btn btn-warning form-control">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
